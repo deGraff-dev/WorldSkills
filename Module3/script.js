@@ -8,11 +8,12 @@ let radiusAsteroid = 55;
 let v = 5;
 let macAsteroidSpeed = 30;
 let maxAsteroids = 5;
+let creationSpeed = 1500;
+
 
 function createAsteroid() {
     if (asteroids.length < maxAsteroids) {
         let asteroid = new Asteroid();
-        asteroid.init();
         asteroids.push(asteroid)
     }
 
@@ -120,7 +121,7 @@ window.onload = function () {
 
 
 
-    setInterval(createAsteroid, 1500)
+    setInterval(createAsteroid, creationSpeed);
 
 
     function render() {
@@ -128,6 +129,9 @@ window.onload = function () {
         score_p.textContent = score;
         if (health == 0) {
             alert("Игра окончена. Ты проиграл. Твой счет:  " + score);
+            macAsteroidSpeed = 30;
+            maxAsteroids = 5;
+            creationSpeed = 1500;
             score = 0;
             health = 3;
             asteroids = [];
@@ -141,6 +145,9 @@ window.onload = function () {
             maxAsteroids += 1;
             macAsteroidSpeed += 10;
             score -= 1000;
+            if(creationSpeed >= 200){
+                creationSpeed -= 100; 
+            }
         }
         ctx.fillStyle = 'black';
         ctx.clearRect(0, 0, 1000, 700);
@@ -278,7 +285,7 @@ class Arc {
 
 class Asteroid {
 
-    init() {
+    constructor() {
         if (Math.random() * 100 >= 50) {
             this.x = Math.random() * 1000;
             this.y = radiusAsteroid + 5;
@@ -287,7 +294,7 @@ class Asteroid {
             this.x = radiusAsteroid + 5;
             this.y = Math.random() * 700;;
         }
-        this.rvx = (Math.random() + 0.5) * macAsteroidSpeed;
+        this.rvx = Math.random() * macAsteroidSpeed + 10;
         this.rvy = this.rvx;
 
         this.color = 'grey';
