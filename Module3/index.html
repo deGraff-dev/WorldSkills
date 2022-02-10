@@ -7,7 +7,7 @@
     <title>Самолет</title>
     <style type="text/css">
         canvas {
-            background: #3E2D84;
+            background: #5b34f5;
         }
 
         html {
@@ -19,12 +19,36 @@
             align-content: center;
             justify-content: center;
         }
+        .hp-cont{
+            position: absolute;
+            margin-left: 15px;
+            color: rgb(255, 28, 28);
+            font-size: 2em;
+        }
+        .score{
+            margin-left: 150px;
+        }
     </style>
     <script type="text/javascript" src="script.js"></script>
 </head>
 
 <body>
-    <canvas id="myCanvas" width="1000" height="700"></canvas>
+    <div>
+        <p class="hp-cont">
+            HP:
+            <strong id="hp">
+                3
+            </strong>
+        </p>
+        <p class="hp-cont score">
+            SCORE:
+            <strong id="score">
+                0
+            </strong>
+        </p>
+        <canvas id="myCanvas" width="1000" height="700"></canvas>
+    </div>
+    
 </body>
 
 </html>
