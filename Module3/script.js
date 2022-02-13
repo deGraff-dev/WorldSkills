@@ -5,11 +5,14 @@ let ys_new = [450, 450, 400];
 let arcs = [];
 let asteroids = [];
 let radiusAsteroid = 55;
-let v = 5;
+let v = 1;
 let macAsteroidSpeed = 30;
 let maxAsteroids = 5;
 let creationSpeed = 1500;
-
+var left = false;
+var right = false;
+var topp = false;
+var down = false;
 
 function createAsteroid() {
     if (asteroids.length < maxAsteroids) {
@@ -61,8 +64,48 @@ window.onload = function () {
 
 
 
-    document.addEventListener('keydown', function (event) {
+    window.addEventListener('keydown', function (event) {
         if (event.code === 'KeyW') {
+            topp = true;
+            down = false;
+        }
+        if (event.code === 'KeyS') {
+            down = true;
+            topp = false;
+        }
+        if (event.code === 'KeyD') {
+            left = false;
+            right = true;
+        }
+        if (event.code === 'KeyA') {
+            right = false;
+            left = true;
+        }
+    });
+    window.addEventListener('keyup', function (event) {
+        if (event.code === 'KeyW') {
+            topp = false;
+        }
+        if (event.code === 'KeyS') {
+            down = false;
+        }
+        if (event.code === 'KeyD') {
+            right = false;
+        }
+        if (event.code === 'KeyA') {
+            left = false;
+        }
+    });
+
+
+
+
+
+    setInterval(createAsteroid, creationSpeed);
+
+
+    function render() {
+        if (topp) {
             for (let i = 0; i < ys_new.length; i++) {
                 if (ys[0] > 0 && ys[1] > 0 && ys[2] > 0) {
                     ys[i] = ys[i] - v;
@@ -76,7 +119,7 @@ window.onload = function () {
 
 
         }
-        if (event.code === 'KeyS') {
+        if (down) {
             if (ys[0] < 700 && ys[1] < 700 && ys[2] < 700) {
                 for (let i = 0; i < ys_new.length; i++) {
 
@@ -89,7 +132,7 @@ window.onload = function () {
 
 
         }
-        if (event.code === 'KeyD') {
+        if (right) {
             if (xs[0] < 1000 && xs[1] < 1000 && xs[2] < 1000) {
                 for (let i = 0; i < ys_new.length; i++) {
 
@@ -101,7 +144,7 @@ window.onload = function () {
 
 
         }
-        if (event.code === 'KeyA') {
+        if (left) {
             if (xs[0] > 0 && xs[1] > 0 && xs[2] > 0) {
                 for (let i = 0; i < ys_new.length; i++) {
 
@@ -115,16 +158,6 @@ window.onload = function () {
 
 
         }
-    });
-
-
-
-
-
-    setInterval(createAsteroid, creationSpeed);
-
-
-    function render() {
         hp.textContent = health;
         score_p.textContent = score;
         if (health == 0) {
@@ -145,8 +178,8 @@ window.onload = function () {
             maxAsteroids += 1;
             macAsteroidSpeed += 10;
             score -= 1000;
-            if(creationSpeed >= 200){
-                creationSpeed -= 100; 
+            if (creationSpeed >= 200) {
+                creationSpeed -= 100;
             }
         }
         ctx.fillStyle = 'black';
