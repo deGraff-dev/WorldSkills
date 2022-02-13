@@ -173,6 +173,10 @@ window.onload = function () {
             xs = [450, 550, 500];
             xs_new = [450, 550, 500];
             ys_new = [450, 450, 400];
+            left = false;
+            right = false;
+            topp = false;
+            down = false;
         }
         if (score == 1000) {
             maxAsteroids += 1;
